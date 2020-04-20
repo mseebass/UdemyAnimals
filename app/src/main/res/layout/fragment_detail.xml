@@ -9,15 +9,16 @@
             type="de.mseebass.udemy.animals.model.Animal" />
 
         <variable
-            name="backgroundColor"
-            type="Integer" />
+            name="palette"
+            type="de.mseebass.udemy.animals.model.AnimalPalette"
+            />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:background="@{safeUnbox(backgroundColor)}"
+        android:background="@{palette.color}"
         android:orientation="vertical"
         tools:context=".view.DetailFragment">
 

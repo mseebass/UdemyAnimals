@@ -16,6 +16,7 @@ import com.bumptech.glide.request.transition.Transition
 import de.mseebass.udemy.animals.R
 import de.mseebass.udemy.animals.databinding.FragmentDetailBinding
 import de.mseebass.udemy.animals.model.Animal
+import de.mseebass.udemy.animals.model.AnimalPalette
 import de.mseebass.udemy.animals.util.getProgressDrawable
 import de.mseebass.udemy.animals.util.loadImage
 
@@ -60,8 +61,7 @@ class DetailFragment : Fragment() {
                 Palette.from(resource)
                     .generate() { palette ->
                         val intColor = palette?.lightMutedSwatch?.rgb ?: 0
-//                        dataBinding.animalLayout.setBackgroundColor(intColor)
-                        dataBinding.backgroundColor = intColor
+                        dataBinding.palette = AnimalPalette((intColor))
                     }
             }
 
