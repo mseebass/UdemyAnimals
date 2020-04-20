@@ -1,32 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/animalLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/animalImage"
+    <data>
+        <variable
+            name="animal"
+            type="de.mseebass.udemy.animals.model.Animal" />
+        <variable
+            name="listener"
+            type="de.mseebass.udemy.animals.view.AnimalClickListener" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:onClick="@{listener::onClick}"
+        android:tag="@{animal.name}"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/ic_launcher_round"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        style="@style/Title"
-        android:id="@+id/animalName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="#afff"
-        android:gravity="center"
-        android:padding="4dp"
-        android:text="Animal name"
-        app:layout_constraintBottom_toBottomOf="@+id/animalImage"
-        app:layout_constraintEnd_toEndOf="@+id/animalImage"
-        app:layout_constraintStart_toStartOf="@+id/animalImage" />
+        <ImageView
+            android:id="@+id/animalImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="center"
+            android:imageUrl="@{animal.imageUrl}"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            style="@style/Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="#afff"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="@{animal.name}"
+            app:layout_constraintBottom_toBottomOf="@+id/animalImage"
+            app:layout_constraintEnd_toEndOf="@+id/animalImage"
+            app:layout_constraintStart_toStartOf="@+id/animalImage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
