@@ -13,6 +13,7 @@ import de.mseebass.udemy.animals.di.AppModule
 import de.mseebass.udemy.animals.di.DaggerViewModelComponent
 import de.mseebass.udemy.animals.model.Animal
 import de.mseebass.udemy.animals.model.AnimalApiService
+import de.mseebass.udemy.animals.model.ApiKey
 import de.mseebass.udemy.animals.util.SharedPreferencesHelper
 import de.mseebass.udemy.animals.viewmodel.ListViewModel
 import io.reactivex.Single
@@ -67,6 +68,22 @@ class ListViewModelTest {
         Assert.assertEquals(1, listViewModel.animals.value?.size)
         Assert.assertEquals(false, listViewModel.loadError.value)
         Assert.assertEquals(false, listViewModel.loading.value)
+    }
+
+    @Test
+    fun getAnimalsFailure() {
+        Mockito.`when`(prefs.getApiKey()).thenReturn(key)
+        val testSingle = Single.error<List<Animal>>(Throwable())
+        val keySingle = Single.just(ApiKey("OK", key))
+
+        Mockito.`when`(animalService.getAnimals(key)).thenReturn(testSingle)
+        Mockito.`when`(animalService.getApiKey()).thenReturn(keySingle)
+
+        listViewModel.refresh()
+
+        Assert.assertEquals(null, listViewModel.animals.value)
+        Assert.assertEquals(false, listViewModel.loading.value)
+        Assert.assertEquals(true, listViewModel.loadError.value)
     }
 
     @Before
